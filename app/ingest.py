@@ -364,6 +364,11 @@ def main() -> None:
         action="store_true",
         help="Only fetch raw text and metadata; do not rebuild SQLite chunks.",
     )
+    parser.add_argument(
+        "--skip-indexing",
+        action="store_true",
+        help="Do not embed chunks into Chroma after chunking.",
+    )
     args = parser.parse_args()
 
     summary = ingest_entities(
@@ -392,6 +397,19 @@ def main() -> None:
             for error in chunk_errors:
                 print(f"ERROR: {error}")
             sys.exit(1)
+        if not args.skip_indexing:
+            from app.vector_store import index_chunks, validate_vector_store
+
+            vector_summary = index_chunks(reset=True)
+            vector_errors = validate_vector_store()
+            print(
+                f"Vector summary: indexed {vector_summary['indexed']} chunks, "
+                f"collection count {vector_summary['collection_count']}."
+            )
+            if vector_errors:
+                for error in vector_errors:
+                    print(f"ERROR: {error}")
+                sys.exit(1)
 
 
 if __name__ == "__main__":
