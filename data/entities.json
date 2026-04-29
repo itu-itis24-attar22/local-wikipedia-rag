@@ -1,0 +1,206 @@
+{
+  "people": [
+    {
+      "name": "Albert Einstein",
+      "wikipedia_title": "Albert Einstein",
+      "aliases": ["Einstein"]
+    },
+    {
+      "name": "Marie Curie",
+      "wikipedia_title": "Marie Curie",
+      "aliases": ["Curie"]
+    },
+    {
+      "name": "Leonardo da Vinci",
+      "wikipedia_title": "Leonardo da Vinci",
+      "aliases": ["Leonardo"]
+    },
+    {
+      "name": "William Shakespeare",
+      "wikipedia_title": "William Shakespeare",
+      "aliases": ["Shakespeare"]
+    },
+    {
+      "name": "Ada Lovelace",
+      "wikipedia_title": "Ada Lovelace",
+      "aliases": ["Lovelace"]
+    },
+    {
+      "name": "Nikola Tesla",
+      "wikipedia_title": "Nikola Tesla",
+      "aliases": ["Tesla"]
+    },
+    {
+      "name": "Lionel Messi",
+      "wikipedia_title": "Lionel Messi",
+      "aliases": ["Messi"]
+    },
+    {
+      "name": "Cristiano Ronaldo",
+      "wikipedia_title": "Cristiano Ronaldo",
+      "aliases": ["Ronaldo"]
+    },
+    {
+      "name": "Taylor Swift",
+      "wikipedia_title": "Taylor Swift",
+      "aliases": ["Swift"]
+    },
+    {
+      "name": "Frida Kahlo",
+      "wikipedia_title": "Frida Kahlo",
+      "aliases": ["Kahlo"]
+    },
+    {
+      "name": "Isaac Newton",
+      "wikipedia_title": "Isaac Newton",
+      "aliases": ["Newton"]
+    },
+    {
+      "name": "Charles Darwin",
+      "wikipedia_title": "Charles Darwin",
+      "aliases": ["Darwin"]
+    },
+    {
+      "name": "Alan Turing",
+      "wikipedia_title": "Alan Turing",
+      "aliases": ["Turing"]
+    },
+    {
+      "name": "Cleopatra",
+      "wikipedia_title": "Cleopatra",
+      "aliases": ["Cleopatra VII"]
+    },
+    {
+      "name": "Mahatma Gandhi",
+      "wikipedia_title": "Mahatma Gandhi",
+      "aliases": ["Gandhi"]
+    },
+    {
+      "name": "Nelson Mandela",
+      "wikipedia_title": "Nelson Mandela",
+      "aliases": ["Mandela"]
+    },
+    {
+      "name": "Pablo Picasso",
+      "wikipedia_title": "Pablo Picasso",
+      "aliases": ["Picasso"]
+    },
+    {
+      "name": "Mozart",
+      "wikipedia_title": "Wolfgang Amadeus Mozart",
+      "aliases": ["Wolfgang Amadeus Mozart"]
+    },
+    {
+      "name": "Aristotle",
+      "wikipedia_title": "Aristotle",
+      "aliases": []
+    },
+    {
+      "name": "Barack Obama",
+      "wikipedia_title": "Barack Obama",
+      "aliases": ["Obama"]
+    }
+  ],
+  "places": [
+    {
+      "name": "Eiffel Tower",
+      "wikipedia_title": "Eiffel Tower",
+      "aliases": []
+    },
+    {
+      "name": "Great Wall of China",
+      "wikipedia_title": "Great Wall of China",
+      "aliases": ["Great Wall"]
+    },
+    {
+      "name": "Taj Mahal",
+      "wikipedia_title": "Taj Mahal",
+      "aliases": []
+    },
+    {
+      "name": "Grand Canyon",
+      "wikipedia_title": "Grand Canyon",
+      "aliases": []
+    },
+    {
+      "name": "Machu Picchu",
+      "wikipedia_title": "Machu Picchu",
+      "aliases": []
+    },
+    {
+      "name": "Colosseum",
+      "wikipedia_title": "Colosseum",
+      "aliases": []
+    },
+    {
+      "name": "Hagia Sophia",
+      "wikipedia_title": "Hagia Sophia",
+      "aliases": ["Aya Sofya"]
+    },
+    {
+      "name": "Statue of Liberty",
+      "wikipedia_title": "Statue of Liberty",
+      "aliases": []
+    },
+    {
+      "name": "Pyramids of Giza",
+      "wikipedia_title": "Giza pyramid complex",
+      "aliases": ["Giza pyramids", "Giza pyramid complex"]
+    },
+    {
+      "name": "Mount Everest",
+      "wikipedia_title": "Mount Everest",
+      "aliases": ["Everest"]
+    },
+    {
+      "name": "Louvre Museum",
+      "wikipedia_title": "Louvre",
+      "aliases": ["Louvre"]
+    },
+    {
+      "name": "Stonehenge",
+      "wikipedia_title": "Stonehenge",
+      "aliases": []
+    },
+    {
+      "name": "Petra",
+      "wikipedia_title": "Petra",
+      "aliases": []
+    },
+    {
+      "name": "Angkor Wat",
+      "wikipedia_title": "Angkor Wat",
+      "aliases": []
+    },
+    {
+      "name": "Acropolis of Athens",
+      "wikipedia_title": "Acropolis of Athens",
+      "aliases": ["Acropolis"]
+    },
+    {
+      "name": "Burj Khalifa",
+      "wikipedia_title": "Burj Khalifa",
+      "aliases": []
+    },
+    {
+      "name": "Niagara Falls",
+      "wikipedia_title": "Niagara Falls",
+      "aliases": []
+    },
+    {
+      "name": "Mount Fuji",
+      "wikipedia_title": "Mount Fuji",
+      "aliases": ["Fuji"]
+    },
+    {
+      "name": "Forbidden City",
+      "wikipedia_title": "Forbidden City",
+      "aliases": []
+    },
+    {
+      "name": "Leaning Tower of Pisa",
+      "wikipedia_title": "Leaning Tower of Pisa",
+      "aliases": ["Tower of Pisa"]
+    }
+  ]
+}
