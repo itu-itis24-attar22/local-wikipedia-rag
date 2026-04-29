@@ -1,1 +1,74 @@
-[]
+{
+  "people": [
+    {
+      "question": "Who was Albert Einstein and what is he known for?",
+      "expected_entities": ["Albert Einstein"]
+    },
+    {
+      "question": "What did Marie Curie discover?",
+      "expected_entities": ["Marie Curie"]
+    },
+    {
+      "question": "Why is Nikola Tesla famous?",
+      "expected_entities": ["Nikola Tesla"]
+    },
+    {
+      "question": "Compare Lionel Messi and Cristiano Ronaldo.",
+      "expected_entities": ["Lionel Messi", "Cristiano Ronaldo"]
+    },
+    {
+      "question": "What is Frida Kahlo known for?",
+      "expected_entities": ["Frida Kahlo"]
+    }
+  ],
+  "places": [
+    {
+      "question": "Where is the Eiffel Tower located?",
+      "expected_entities": ["Eiffel Tower"]
+    },
+    {
+      "question": "Why is the Great Wall of China important?",
+      "expected_entities": ["Great Wall of China"]
+    },
+    {
+      "question": "What is Machu Picchu?",
+      "expected_entities": ["Machu Picchu"]
+    },
+    {
+      "question": "What was the Colosseum used for?",
+      "expected_entities": ["Colosseum"]
+    },
+    {
+      "question": "Where is Mount Everest?",
+      "expected_entities": ["Mount Everest"]
+    }
+  ],
+  "mixed": [
+    {
+      "question": "Which famous place is located in Turkey?",
+      "expected_entities": ["Hagia Sophia"]
+    },
+    {
+      "question": "Which person is associated with electricity?",
+      "expected_entities": ["Nikola Tesla"]
+    },
+    {
+      "question": "Compare Albert Einstein and Nikola Tesla.",
+      "expected_entities": ["Albert Einstein", "Nikola Tesla"]
+    },
+    {
+      "question": "Compare the Eiffel Tower and the Statue of Liberty.",
+      "expected_entities": ["Eiffel Tower", "Statue of Liberty"]
+    }
+  ],
+  "failure_cases": [
+    {
+      "question": "Who is the president of Mars?",
+      "expected_answer": "I don't know based on the local Wikipedia data."
+    },
+    {
+      "question": "Tell me about a random unknown person John Doe.",
+      "expected_answer": "I don't know based on the local Wikipedia data."
+    }
+  ]
+}
