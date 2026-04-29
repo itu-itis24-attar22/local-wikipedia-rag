@@ -359,6 +359,11 @@ def main() -> None:
         default=0.1,
         help="Small pause between Wikipedia API requests.",
     )
+    parser.add_argument(
+        "--skip-chunking",
+        action="store_true",
+        help="Only fetch raw text and metadata; do not rebuild SQLite chunks.",
+    )
     args = parser.parse_args()
 
     summary = ingest_entities(
@@ -374,6 +379,19 @@ def main() -> None:
     )
     if summary["failures"]:
         sys.exit(1)
+    if not args.skip_chunking:
+        from app.chunker import rebuild_chunks_from_database, validate_chunks
+
+        chunk_summary = rebuild_chunks_from_database()
+        chunk_errors = validate_chunks()
+        print(
+            f"Chunking summary: {len(chunk_summary['entities'])} entities, "
+            f"{chunk_summary['total_chunks']} chunks."
+        )
+        if chunk_errors:
+            for error in chunk_errors:
+                print(f"ERROR: {error}")
+            sys.exit(1)
 
 
 if __name__ == "__main__":
