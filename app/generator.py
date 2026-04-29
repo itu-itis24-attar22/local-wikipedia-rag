@@ -1,0 +1,1 @@
+"""Local Ollama generation logic."""
