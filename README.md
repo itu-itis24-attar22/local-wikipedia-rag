@@ -29,7 +29,7 @@ The system does not use OpenAI, external LLM APIs, hosted vector databases, or L
 ## Installation
 
 ```powershell
-git clone <repo-link>
+git clone https://github.com/itu-itis24-attar22/local-wikipedia-rag
 cd local-wikipedia-rag
 python -m venv .venv
 .venv\Scripts\activate

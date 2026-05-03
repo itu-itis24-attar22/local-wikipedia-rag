@@ -13,16 +13,64 @@ from app.config import (
     UNKNOWN_ANSWER,
 )
 from app.embeddings import OllamaError, _ollama_url, ensure_model_available
-from app.retriever import RetrievedChunk, format_retrieved_context
+from app.retriever import RetrievedChunk
 
 
 class GenerationError(RuntimeError):
     """Raised when local answer generation fails."""
 
 
+MAX_PROMPT_CHUNKS = 4
+MAX_CHUNK_WORDS_FOR_PROMPT = 180
+MAX_CHUNKS_PER_ENTITY_FOR_PROMPT = 2
+
+
+def _truncate_words(text: str, max_words: int) -> str:
+    words = text.split()
+    if len(words) <= max_words:
+        return text
+    return " ".join(words[:max_words]) + " ..."
+
+
+def _select_prompt_chunks(chunks: list[RetrievedChunk]) -> list[RetrievedChunk]:
+    """Keep the generation prompt small while preserving entity diversity."""
+    selected: list[RetrievedChunk] = []
+    counts_by_entity: dict[str, int] = {}
+    for chunk in chunks:
+        entity_name = str(chunk.metadata.get("entity_name", ""))
+        if counts_by_entity.get(entity_name, 0) >= MAX_CHUNKS_PER_ENTITY_FOR_PROMPT:
+            continue
+        selected.append(chunk)
+        counts_by_entity[entity_name] = counts_by_entity.get(entity_name, 0) + 1
+        if len(selected) >= MAX_PROMPT_CHUNKS:
+            break
+    return selected or chunks[:MAX_PROMPT_CHUNKS]
+
+
+def format_prompt_context(chunks: list[RetrievedChunk]) -> str:
+    """Format a compact grounded context for local generation."""
+    blocks: list[str] = []
+    for index, chunk in enumerate(_select_prompt_chunks(chunks), start=1):
+        metadata = chunk.metadata
+        blocks.append(
+            "\n".join(
+                [
+                    f"[{index}] Entity: {metadata.get('entity_name', '')}",
+                    f"Type: {metadata.get('entity_type', '')}",
+                    f"Section: {metadata.get('section_title', '')}",
+                    f"Source: {metadata.get('source_url', '')}",
+                    f"Chunk index: {metadata.get('chunk_index', '')}",
+                    "Text:",
+                    _truncate_words(chunk.text, MAX_CHUNK_WORDS_FOR_PROMPT),
+                ]
+            )
+        )
+    return "\n\n".join(blocks)
+
+
 def build_prompt(query: str, chunks: list[RetrievedChunk]) -> str:
     """Build a strict grounded-answer prompt."""
-    context = format_retrieved_context(chunks)
+    context = format_prompt_context(chunks)
     return f"""You are a local Wikipedia retrieval assistant.
 
 Use only the retrieved local Wikipedia context below.
@@ -30,7 +78,7 @@ Do not use outside knowledge.
 If the context does not contain enough information to answer the question, reply exactly:
 {UNKNOWN_ANSWER}
 
-When answering, be concise and mention the relevant source entity names from the context.
+When answering, be concise. Use at most 5 sentences and mention the relevant source entity names from the context.
 
 Retrieved context:
 {context}
@@ -65,9 +113,13 @@ def generate_answer(
                 "model": model,
                 "prompt": prompt,
                 "stream": False,
-                "options": {"temperature": temperature},
+                "options": {
+                    "temperature": temperature,
+                    "num_ctx": 2048,
+                    "num_predict": 280,
+                },
             },
-            timeout=180,
+            timeout=300,
         )
         response.raise_for_status()
     except requests.RequestException as exc:

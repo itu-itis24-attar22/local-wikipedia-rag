@@ -106,6 +106,33 @@ def _query_collection(
     return chunks
 
 
+def _entity_anchor_chunk(entity_name: str) -> RetrievedChunk | None:
+    """Return the first/lead chunk for a named entity from Chroma."""
+    collection = get_collection()
+    result = collection.get(
+        where=_entity_filter(entity_name),
+        include=["documents", "metadatas"],
+    )
+    ids = result.get("ids", [])
+    documents = result.get("documents", [])
+    metadatas = result.get("metadatas", [])
+
+    fallback: RetrievedChunk | None = None
+    for index, chunk_id in enumerate(ids):
+        metadata = metadatas[index]
+        chunk = RetrievedChunk(
+            id=chunk_id,
+            text=documents[index],
+            metadata=metadata,
+            distance=-1.0,
+        )
+        if int(metadata.get("chunk_index", -1)) == 0:
+            return chunk
+        if fallback is None and str(metadata.get("section_title", "")).lower() == "lead":
+            fallback = chunk
+    return fallback
+
+
 def retrieve(
     query: str,
     *,
@@ -119,6 +146,10 @@ def retrieve(
         comparison_top_k_per_entity=comparison_top_k_per_entity,
     )
     chunks_by_id: dict[str, RetrievedChunk] = {}
+    for entity_name in dict.fromkeys(plan.classification.matched_entities):
+        anchor = _entity_anchor_chunk(entity_name)
+        if anchor is not None:
+            chunks_by_id.setdefault(anchor.id, anchor)
     for search in plan.searches:
         for chunk in _query_collection(query, where=search["where"], top_k=search["top_k"]):
             chunks_by_id.setdefault(chunk.id, chunk)
