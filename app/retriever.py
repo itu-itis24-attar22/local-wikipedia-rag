@@ -109,6 +109,22 @@ def _query_collection(
 def _entity_anchor_chunk(entity_name: str) -> RetrievedChunk | None:
     """Return the first/lead chunk for a named entity from Chroma."""
     collection = get_collection()
+    try:
+        result = collection.get(
+            where={"$and": [_entity_filter(entity_name), {"chunk_index": 0}]},
+            include=["documents", "metadatas"],
+        )
+        ids = result.get("ids", [])
+        if ids:
+            return RetrievedChunk(
+                id=ids[0],
+                text=result.get("documents", [])[0],
+                metadata=result.get("metadatas", [])[0],
+                distance=-1.0,
+            )
+    except Exception:
+        pass
+
     result = collection.get(
         where=_entity_filter(entity_name),
         include=["documents", "metadatas"],

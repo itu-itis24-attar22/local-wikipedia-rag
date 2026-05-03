@@ -20,8 +20,8 @@ class GenerationError(RuntimeError):
     """Raised when local answer generation fails."""
 
 
-MAX_PROMPT_CHUNKS = 4
-MAX_CHUNK_WORDS_FOR_PROMPT = 180
+MAX_PROMPT_CHUNKS = 3
+MAX_CHUNK_WORDS_FOR_PROMPT = 140
 MAX_CHUNKS_PER_ENTITY_FOR_PROMPT = 2
 
 
@@ -75,10 +75,11 @@ def build_prompt(query: str, chunks: list[RetrievedChunk]) -> str:
 
 Use only the retrieved local Wikipedia context below.
 Do not use outside knowledge.
-If the context does not contain enough information to answer the question, reply exactly:
+If the context is empty or unrelated to the question, reply exactly:
 {UNKNOWN_ANSWER}
+If the context supports an answer, answer only with supported facts and do not append the fallback sentence.
 
-When answering, be concise. Use at most 5 sentences and mention the relevant source entity names from the context.
+When answering, be concise. Use at most 3 short sentences and mention the relevant source entity names from the context.
 
 Retrieved context:
 {context}
@@ -116,7 +117,7 @@ def generate_answer(
                 "options": {
                     "temperature": temperature,
                     "num_ctx": 2048,
-                    "num_predict": 280,
+                    "num_predict": 160,
                 },
             },
             timeout=300,
