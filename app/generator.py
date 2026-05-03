@@ -80,6 +80,7 @@ If the context is empty or unrelated to the question, reply exactly:
 If the context supports an answer, answer only with supported facts and do not append the fallback sentence.
 
 When answering, be concise. Use at most 3 short sentences and mention the relevant source entity names from the context.
+When writing mathematical formulas, preserve exponents using plain text notation, for example E = mc^2.
 
 Retrieved context:
 {context}
